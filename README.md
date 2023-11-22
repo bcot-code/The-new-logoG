@@ -1,2 +1,2 @@
-# Upgraded-rotary-logoG
+# Upgraded-logoG
 Module 10
