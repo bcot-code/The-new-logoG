@@ -8,6 +8,7 @@ Module 10 - Generate a LOGO svg of basic shapes such circle, square, and triangl
 [Tutorial how to use app](Inprocess...)
 
 </div>
+
 ## Table of Content
 
 1. [Description](#description)
