@@ -1,75 +1,88 @@
 // Runs the application using imports from lib/
 import inquirer from "inquirer";
 import fs from "fs";
-import generateLogo from "./utils/generateLogo.js";
+// import { generatedShape } from "../The-new-logoG/lib/generateLoSh.js";
+import { circle } from "./lib/shapes.js";
+import { triangle } from "./lib/shapes.js";
+import { square } from "./lib/shapes.js";
 
-//application that accepts user input
-const qs = [
-  {
-    type: "input",
-    name: "name",
-    message: "What is your name?",
-  },
-  {
-    type: "input",
-    name: "github",
-    message: "What is your GitHub username?",
-  },
-  {
-    type: "input",
-    name: "email",
-    message: "What is your email address?",
-  },
-  {
-    type: "input",
-    name: "Logo",
-    message: "What is the name of your logo?",
-    validate: function (input) {
-      if (input.length > 3) {
-        return true;
-      } else {
-        return "Please enter a logo with more than 3 characters.";
-      }
+// WHEN I am prompted for text
+// THEN I can enter up to three characters
+inquirer
+  .prompt([
+    {
+      type: "input",
+      name: "text",
+      message: "Enter a character or two.",
+      validate(value) {
+        if (value.length < 1 || value.length > 3) {
+          return false;
+        } else {
+          return true;
+        }
+      },
     },
-  },
-  {
+    // WHEN I am prompted for the text color
+    // THEN I can enter a color keyword (OR a hexadecimal number)
+    {
+      type: "list",
+      name: "color",
+      message: "Choose a color!",
+      choices: ["red", "blue", "green", "#FF0000"],
+    },
     // WHEN I am prompted for a shape
-    type: "list",
-    name: "shape",
-    message: "What shape would you like your logo to be?",
-    choices: ["Circle", "Square", "Triangle", "Heart"],
-  },
-  {
+    // THEN I can choose between circle, square, and triangle
+    {
+      type: "list",
+      name: "logoshape",
+      message: "What kind of shape?",
+      choices: ["Circle", "Square", "Triangle"],
+    },
     // WHEN I am prompted for the shape's color
-    type: "input",
-    name: "shape_color",
-    message: "What color would you like your logo to be?",
-  },
-  {
-    type: "input",
-    name: "text_color",
-    message: "What color would you like the text to be?",
-  },
-];
-
-//entered input for all the prompts
-function writeToFile(fileName, data) {
-  var svg = generateLogo(data);
-  fs.writeFile(fileName, svg, function (err) {
-    if (err) {
-      return console.log(err);
+    //THEN I can enter a color keyword (OR a hexadecimal number)
+    {
+      type: "list",
+      name: "shapeColor",
+      message: "Which color would you like your shape in?",
+      choices: ["red", "blue", "green", "#FF0000"],
+    },
+  ])
+  .then(({ text, color, logoshape, shapeColor }) => {
+    let generatedLogo;
+    switch (logoshape) {
+      case "Circle":
+        const circleLogo = new circle();
+        circleLogo.setColor(shapeColor);
+        circleLogo.setTextColor(color);
+        circleLogo.setText(text);
+        generatedLogo = circleLogo.render();
+        break;
+      case "Square":
+        const squareLogo = new square();
+        squareLogo.setColor(shapeColor);
+        squareLogo.setTextColor(color);
+        squareLogo.setText(text);
+        generatedLogo = squareLogo.render();
+        break;
+      case "Triangle":
+        const triangleLogo = new triangle();
+        triangleLogo.setColor(shapeColor);
+        triangleLogo.setTextColor(color);
+        triangleLogo.setText(text);
+        generatedLogo = triangleLogo.render();
+        break;
+      default:
+        console.error("No shape selected");
     }
-    //AND the output text "Generated logo.svg"
-    console.log("Generated logo.svg");
-  });
-}
 
-function init() {
-  inquirer.prompt(qs).then(function (data) {
-    console.log(data);
-    // THEN an SVG file is created named `logo.svg`
-    var fileNm = "logo.svg";
-    writeToFile(fileNm, data);
-  });
-}
-init();
+    const svgPath = "./tests/generatedLogo.svg";
+
+    fs.writeFileSync(svgPath, generatedLogo, (err) =>
+      err ? console.log(err) : console.log("Generated logo.svg")
+    );
+  })
+  .catch((err) => console.error(err));
+
+//WHEN I have entered input for all the prompts
+// THEN an SVG file is created named `logo.svg.
+// AND the output text "Generated logo.svg" is printed in the command line.
