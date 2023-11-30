@@ -6,7 +6,7 @@ Module 10 - Generate a LOGO svg of basic shapes such circle, square, and triangl
 
 ## Screencastify Tutorial
 
-[Tutorial how to use app]()
+[Tutorial how to use app](https://watch.screencastify.com/v/uOBUJWDlz1bHbjmPAHUA)
 
 </div>
 
