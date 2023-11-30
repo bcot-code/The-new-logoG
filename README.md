@@ -1,4 +1,5 @@
 <div align="center">
+
 # Project Title: Upgraded-logoG
 
 Module 10 - Generate a LOGO svg of basic shapes such circle, square, and triangle. Including color and color text of the user's or developers choice. Just for the logo there would be a limit of 3 characters in text.
