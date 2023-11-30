@@ -6,7 +6,7 @@ Module 10 - Generate a LOGO svg of basic shapes such circle, square, and triangl
 
 ## Screencastify Tutorial
 
-[Tutorial how to use app](Inprocess...)
+[Tutorial how to use app]()
 
 </div>
 
@@ -34,11 +34,11 @@ To run this application you will need to have node installed on your computer. Y
 
 ## Screenshot
 
-[Triangle](![Alt text](/examples/Screen%20Shot%202023-11-29%20at%206.51.19%20PM.png))
+![Preview README sample](![Alt text](/examples/Triangle.png))
 
-![Circle](![Alt text](/examples/Screen%20Shot%202023-11-29%20at%206.51.19%20PM.png))
+[Circle](![Alt text](/examples/Screen%20Shot%202023-11-29%20at%206.51.19%20PM.png))
 
-![Square](![Alt text](/examples/Screen%20Shot%202023-11-29%20at%207.16.39%20PM.png))
+[Square](![Alt text](/examples/Screen%20Shot%202023-11-29%20at%207.16.39%20PM.png))
 
 ## Repository
 
