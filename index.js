@@ -25,10 +25,9 @@ inquirer
     // WHEN I am prompted for the text color
     // THEN I can enter a color keyword (OR a hexadecimal number)
     {
-      type: "list",
+      type: "text",
       name: "color",
-      message: "Choose a color!",
-      choices: ["red", "blue", "green", "#FF0000"],
+      message: "Text a color(or hexadecimal)!",
     },
     // WHEN I am prompted for a shape
     // THEN I can choose between circle, square, and triangle
@@ -41,48 +40,59 @@ inquirer
     // WHEN I am prompted for the shape's color
     //THEN I can enter a color keyword (OR a hexadecimal number)
     {
-      type: "list",
+      type: "text",
       name: "shapeColor",
-      message: "Which color would you like your shape in?",
-      choices: ["red", "blue", "green", "#FF0000"],
+      message: "Enter color(or hexadecimal) would you like your shape in?",
     },
   ])
   .then(({ text, color, logoshape, shapeColor }) => {
-    let generatedLogo;
+    let logo = "";
     switch (logoshape) {
-      case "Circle":
+      case "circle":
         const circleLogo = new circle();
         circleLogo.setColor(shapeColor);
         circleLogo.setTextColor(color);
         circleLogo.setText(text);
-        generatedLogo = circleLogo.render();
+        logo = circleLogo.render();
         break;
-      case "Square":
+      case "square":
         const squareLogo = new square();
         squareLogo.setColor(shapeColor);
         squareLogo.setTextColor(color);
         squareLogo.setText(text);
-        generatedLogo = squareLogo.render();
+        logo = squareLogo.render();
         break;
-      case "Triangle":
+      case "triangle":
         const triangleLogo = new triangle();
         triangleLogo.setColor(shapeColor);
         triangleLogo.setTextColor(color);
         triangleLogo.setText(text);
-        generatedLogo = triangleLogo.render();
+        logo = triangleLogo.render();
         break;
       default:
         console.error("No shape selected");
     }
+    console.log(`\n${logo}\n`);
 
-    const svgPath = "./tests/generatedLogo.svg";
-
-    fs.writeFileSync(svgPath, generatedLogo, (err) =>
-      err ? console.log(err) : console.log("Generated logo.svg")
-    );
-  })
-  .catch((err) => console.error(err));
-
-//WHEN I have entered input for all the prompts
-// THEN an SVG file is created named `logo.svg.
-// AND the output text "Generated logo.svg" is printed in the command line.
+    let svgPath = "";
+    svgPath =
+      '<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">';
+    let shapePick;
+    if (logoshape === "triangle") {
+      shapePick = new triangle();
+      svgPath += `<poly points="150, 18 244, 182 56, 182" fill="${shapeColor}"/>`;
+    } else if (logoshape === "sqaure") {
+      shapePick += new square();
+      svgPath += `<rect x="73" y="40" width="160" height="160" fill="${shapeColor}"/>`;
+    } else {
+      shapePick += new circle();
+      svgPath += `<circle cx="150" cy="115" r="80" fill="${shapeColor}"/>`;
+    }
+    svgPath += `<text x="150" y="130" text-anchor="middle" font-size="40" fill="${color}">${text}</text>`;
+    svgPath += `</svg>`;
+    //WHEN I have entered input for all the prompts
+    // THEN an SVG file is created named `logo.svg.
+    // AND the output text "Generated logo.svg" is printed in the command line.
+    fs.writeFileSync("./tests/logo.svg", svgPath);
+    console.log("\x1b[32m%s\x1b[0m", "Generated logo.svg");
+  });
