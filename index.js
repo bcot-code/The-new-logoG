@@ -78,10 +78,10 @@ inquirer
     svgPath =
       '<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">';
     let shapePick;
-    if (logoshape === "triangle") {
-      shapePick = new triangle();
-      svgPath += `<poly points="150, 18 244, 182 56, 182" fill="${shapeColor}"/>`;
-    } else if (logoshape === "sqaure") {
+    if (logoshape === "Triangle") {
+      shapePick += new triangle();
+      svgPath += `<polygon points="150, 18 244, 182 56, 182" fill="${shapeColor}"/>`;
+    } else if (logoshape === "Square") {
       shapePick += new square();
       svgPath += `<rect x="73" y="40" width="160" height="160" fill="${shapeColor}"/>`;
     } else {
